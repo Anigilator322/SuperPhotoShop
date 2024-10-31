@@ -12,6 +12,41 @@
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
     </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Для верхней панели -->
+            <RowDefinition MinHeight="100" MaxHeight="2000" />
+            <!-- Для основной области -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Для панели инструментов -->
+            <ColumnDefinition MinWidth="100" MaxWidth="2000" />
+            <!-- Для области изображения -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Верхняя панель с меню -->
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть изображение" Command="{Binding OpenImageCommand}"/>
+                <MenuItem Header="Сохранить изображение" Command="{Binding SaveImageCommand}"/>
+                <Separator/>
+                <MenuItem Header="Открыть проект" Command="{Binding OpenProjectCommand}"/>
+                <MenuItem Header="Сохранить проект" Command="{Binding SaveProjectCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Панель инструментов слева -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Background="#EEEEEE">
+            <Button Content="Яркость" Command="{Binding Tool1Command}" Margin="5"/>
+            <Button Content="Инструмент 2" Command="{Binding Tool2Command}" Margin="5"/>
+            <Button Content="Инструмент 3" Command="{Binding Tool3Command}" Margin="5"/>
+            <!-- Добавьте другие кнопки инструментов при необходимости -->
+        </StackPanel>
+
+        <!-- Поле для изображения -->
+        <Border Grid.Row="1" Grid.Column="1" Background="#CCCCCC" Margin="10" >
+            <Image Source="{Binding CurrentImage}" Stretch="Uniform" MinWidth="200" MinHeight="200" />
+        </Border>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperPhotoShop.Infrostructure;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,11 @@ namespace SuperPhotoShop
     /// </summary>
     public partial class App : Application
     {
+        private Editor _Editor;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Editor editor = new Editor();
+            editor.Initialize();
+        }
     }
 }

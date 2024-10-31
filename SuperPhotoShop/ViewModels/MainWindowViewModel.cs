@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Media.Imaging;
+
 namespace SuperPhotoShop.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
@@ -12,5 +14,13 @@ namespace SuperPhotoShop.ViewModels
             set => Set(ref _title, value);
         } 
         #endregion
+
+        private BitmapImage _currentImage;
+        public BitmapImage CurrentImage
+        {
+            get => _currentImage;
+            set => Set(ref _currentImage, value);
+        }
+
     }
 }
