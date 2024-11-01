@@ -71,6 +71,8 @@
     <Compile Include="Infrostructure\CommandHistory.cs" />
     <Compile Include="Infrostructure\Editor.cs" />
     <Compile Include="Infrostructure\FileManager.cs" />
+    <Compile Include="Infrostructure\ViewCommands\Base\ViewCommand.cs" />
+    <Compile Include="Infrostructure\ViewCommands\RelayCommand.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Infrostructure\Session.cs" />
     <Compile Include="Infrostructure\Tool.cs" />

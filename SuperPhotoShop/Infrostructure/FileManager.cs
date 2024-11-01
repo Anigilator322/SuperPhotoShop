@@ -22,11 +22,11 @@ namespace SuperPhotoShop.Infrostructure
 
             if (openFileDialog.ShowDialog() == true)
             {
-                using (MagickImage image = new MagickImage(openFileDialog.FileName))
-                {
-                    image.Resize(300, 300);
-                    return new ImageModel(image);
-                }
+                MagickImage image = new MagickImage(openFileDialog.FileName);
+                image.Resize(300, 300);
+                ImageModel imageModel = new ImageModel(image);
+                return (imageModel);
+
 
             }
             return null;

@@ -17,6 +17,10 @@ namespace SuperPhotoShop.Models
         {
             _image = image;
         }
+        public MagickImage GetImage()
+        {
+            return _image;
+        }
         public void SetBrightness(float brightness)
         {
 

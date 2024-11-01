@@ -28,11 +28,13 @@
         <!-- Верхняя панель с меню -->
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Открыть изображение" Command="{Binding OpenImageCommand}"/>
+                <MenuItem Header="Открыть изображение" Command="{Binding OpenImageViewCommand}"/>
                 <MenuItem Header="Сохранить изображение" Command="{Binding SaveImageCommand}"/>
                 <Separator/>
                 <MenuItem Header="Открыть проект" Command="{Binding OpenProjectCommand}"/>
                 <MenuItem Header="Сохранить проект" Command="{Binding SaveProjectCommand}"/>
+                <Separator/>
+                <MenuItem Header="Выход" Command="{Binding CloseApplicationViewCommand}"/>
             </MenuItem>
         </Menu>
 
