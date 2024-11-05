@@ -12,6 +12,7 @@ namespace SuperPhotoShop.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        public ImageViewModel ImageViewModel { get; }
 
         #region Title
         private string _title = "SuperPhohotoshop";
@@ -19,15 +20,6 @@ namespace SuperPhotoShop.ViewModels
         {
             get => _title;
             set => Set(ref _title, value);
-        }
-        #endregion
-
-        #region Image
-        private BitmapImage _currentImage;
-        public BitmapImage CurrentImage
-        {
-            get => _currentImage;
-            set => Set(ref _currentImage, value);
         }
         #endregion
 
@@ -45,41 +37,12 @@ namespace SuperPhotoShop.ViewModels
         
         public ICommand CloseApplicationViewCommand { get; }
         #endregion
-        #region OpenImageViewComand
-        public ICommand OpenImageViewCommand { get; }
-
-        private bool CanOpenImageViewCommandExecute(object param) => true;
-        private void OnOpenImageViewCommandExecuted(object param)
-        {
-            FileManager _fileManager = new FileManager();
-            ImageModel model = _fileManager.LoadImage();
-            MagickImage image = model.GetImage();
-            CurrentImage = ConvertToBitmapImage(image);
-        }
-        private BitmapImage ConvertToBitmapImage(MagickImage image)
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                image.Write(memoryStream, MagickFormat.Png);
-                memoryStream.Seek(0, SeekOrigin.Begin);
-
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.EndInit();
-
-                return bitmapImage;
-            }
-
-        }
-        #endregion
-
+        
         public MainWindowViewModel()
         {
+            ImageViewModel = new ImageViewModel(this);
             #region ViewCommands
             CloseApplicationViewCommand = new RelayCommand(OnCloseApplicationViewCommandExecuted, CanCloseApplicationViewCommandExecute);
-            OpenImageViewCommand = new RelayCommand(OnOpenImageViewCommandExecuted, CanOpenImageViewCommandExecute);
             #endregion
         }
     }

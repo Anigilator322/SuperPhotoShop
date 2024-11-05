@@ -33,7 +33,7 @@ namespace SuperPhotoShop.Infrostructure
         }
         public Session LoadSession()
         {
-            return new Session();
+            return new Session(new ImageModel(new MagickImage()));
         }
 
         private BitmapImage ConvertToBitmapImage(MagickImage image)

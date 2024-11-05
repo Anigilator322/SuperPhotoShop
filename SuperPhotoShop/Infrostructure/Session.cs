@@ -4,14 +4,20 @@ namespace SuperPhotoShop.Infrostructure
 {
     public class Session
     {
-        private ImageModel ImageModel;
+        private ImageModel _imageModel;
+        private CommandHistory _commandHistory;
+
+        public Session(ImageModel imageModel)
+        {
+            _imageModel = imageModel;
+        }
         public ImageModel GetImage()
         {
-            return ImageModel;
+            return _imageModel;
         }
         public void SetImage(ImageModel image)
         {
-            ImageModel = image;
+            _imageModel = image;
         }
 
     }

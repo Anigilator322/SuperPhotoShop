@@ -1,4 +1,5 @@
 ﻿using ImageMagick;
+using System;
 
 namespace SuperPhotoShop.Models
 {
@@ -13,6 +14,8 @@ namespace SuperPhotoShop.Models
         public ImageFormat Format;
         private MagickImage _image;
 
+        public event EventHandler ImageChanged;
+
         public ImageModel(MagickImage image)
         {
             _image = image;
@@ -24,6 +27,11 @@ namespace SuperPhotoShop.Models
         public void SetBrightness(float brightness)
         {
 
+        }
+
+        private void OnImageChanged()
+        {
+            ImageChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

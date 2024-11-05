@@ -28,7 +28,7 @@
         <!-- Верхняя панель с меню -->
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Открыть изображение" Command="{Binding OpenImageViewCommand}"/>
+                <MenuItem Header="Открыть изображение" Command="{Binding ImageViewModel.OpenImageViewCommand}"/>
                 <MenuItem Header="Сохранить изображение" Command="{Binding SaveImageCommand}"/>
                 <Separator/>
                 <MenuItem Header="Открыть проект" Command="{Binding OpenProjectCommand}"/>
@@ -40,15 +40,22 @@
 
         <!-- Панель инструментов слева -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Background="#EEEEEE">
-            <Button Content="Яркость" Command="{Binding Tool1Command}" Margin="5"/>
+            <ListBox ItemsSource="{Binding ImageViewModel.Tools}"
+                     SelectedItem="{Binding ImageViewModel.SelectedTool}"
+                     DisplayMemberPath="Name"/>
+            <!--<Button Content="Яркость" Command="{Binding Tool1Command}" Margin="5"/>
             <Button Content="Инструмент 2" Command="{Binding Tool2Command}" Margin="5"/>
             <Button Content="Инструмент 3" Command="{Binding Tool3Command}" Margin="5"/>
-            <!-- Добавьте другие кнопки инструментов при необходимости -->
+             Добавьте другие кнопки инструментов при необходимости -->
         </StackPanel>
 
         <!-- Поле для изображения -->
         <Border Grid.Row="1" Grid.Column="1" Background="#CCCCCC" Margin="10" >
-            <Image Source="{Binding CurrentImage}" Stretch="Uniform" MinWidth="200" MinHeight="200" />
+            <Image Source="{Binding ImageViewModel.CurrentImage}" Stretch="Uniform" MinWidth="200" MinHeight="200" >
+                <Image.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ImageViewModel.ApplyToolViewCommand}"/>
+                </Image.InputBindings>
+            </Image>
         </Border>
     </Grid>
 </Window>
