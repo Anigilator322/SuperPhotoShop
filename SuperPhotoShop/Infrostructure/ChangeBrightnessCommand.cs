@@ -1,20 +1,27 @@
-﻿using SuperPhotoShop.Models;
+﻿using ImageMagick;
+using SuperPhotoShop.Models;
+using System.Diagnostics;
 
 namespace SuperPhotoShop.Infrostructure
 {
     public class ChangeBrightnessCommand: Command
     {
-        private float _oldBrightness;
-        private float _newBrightness;
+        private double _oldBrightness;
+        private double _newBrightness;
+
         private ImageModel _imageModel;
-        public ChangeBrightnessCommand(float newBrightness, float oldBrightness, ImageModel _image) 
+
+        public ChangeBrightnessCommand(double newBrightness, ImageModel _image) 
         {
             _newBrightness = newBrightness;
-            _oldBrightness = oldBrightness;
+            _imageModel = _image;
         }
 
         public override void Execute()
         {
+            Debug.WriteLine((Percentage)_newBrightness + " " + (Percentage)100.0);
+            _imageModel.GetImage().Modulate((Percentage)_newBrightness, (Percentage)100.0, (Percentage)100);
+            _imageModel.OnImageChanged();
 
         }
         public override void Redo()

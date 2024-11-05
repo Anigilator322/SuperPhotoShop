@@ -101,7 +101,7 @@ namespace SuperPhotoShop.ViewModels
                     {
                         requirments.Parametrs[requirments.FieldsLabels[i]] = double.Parse(dialog.InputValues[i]);
                     }
-                    SelectedTool.ApplyTool(_imageModel);
+                    SelectedTool.ApplyTool(_imageModel, _session.GetCommandHistory());
                 }
                 else
                 {

@@ -10,7 +10,7 @@ namespace SuperPhotoShop.Infrostructure
         {
 
         }
-        public virtual void ApplyTool(ImageModel imageModel)
+        public virtual void ApplyTool(ImageModel imageModel, CommandHistory commandHistory)
         {
         }
     }

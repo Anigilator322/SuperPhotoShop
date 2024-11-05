@@ -5,7 +5,7 @@ namespace SuperPhotoShop.Infrostructure
 {
     public class CommandHistory
     {
-        private Stack<Command> commandsStack;
+        private Stack<Command> commandsStack = new Stack<Command>();
 
         public void ExecuteCommand(Command command)
         {
