@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using SuperPhotoShop.Infrostructure;
+using SuperPhotoShop.Infrostructure.Tool_Commands;
 using SuperPhotoShop.Infrostructure.ViewCommands;
 using SuperPhotoShop.Models;
 using SuperPhotoShop.View.Windows;
@@ -65,7 +66,6 @@ namespace SuperPhotoShop.ViewModels
             CurrentImage = ConvertToBitmapImage(model);
             _session = new Session(_imageModel);
         }
-
         #endregion
 
         #region Tools
@@ -82,7 +82,7 @@ namespace SuperPhotoShop.ViewModels
         }
         #endregion
 
-        #region SelectBrightnessEditorToolViewCommand
+        #region ApplyToolViewCommand
         public ICommand ApplyToolViewCommand { get; }
         private bool CanApplyToolViewCommandExecute(object param) => SelectedTool != null && _imageModel != null;
         private void OnApplyToolViewCommandExecuted(object param)
@@ -115,8 +115,8 @@ namespace SuperPhotoShop.ViewModels
         {
             MainViewModel = mainViewModel;
 
-            Tools.Add(new BrightnessEditor());
-
+            Tools.Add(new ColorCorrectionTool());
+            Tools.Add(new FilterTool());
             #region ViewCommands
             OpenImageViewCommand = new RelayCommand(OnOpenImageViewCommandExecuted, CanOpenImageViewCommandExecute);
             ApplyToolViewCommand = new RelayCommand(OnApplyToolViewCommandExecuted, CanApplyToolViewCommandExecute);

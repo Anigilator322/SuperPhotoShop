@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SuperPhotoShop.Infrostructure
+namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public class CommandHistory
     {

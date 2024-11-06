@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SuperPhotoShop.Infrostructure.Tool_Commands;
+using System.Collections.Generic;
 
 
 namespace SuperPhotoShop.Infrostructure
@@ -18,7 +19,7 @@ namespace SuperPhotoShop.Infrostructure
 
         private void LoadTools()
         {
-            _tools.Add(new BrightnessEditor());
+            _tools.Add(new ColorCorrectionTool());
         }
     }
 }

@@ -38,6 +38,8 @@ namespace SuperPhotoShop.ViewModels
         public ICommand CloseApplicationViewCommand { get; }
         #endregion
         
+        
+
         public MainWindowViewModel()
         {
             ImageViewModel = new ImageViewModel(this);
