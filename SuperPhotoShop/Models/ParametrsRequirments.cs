@@ -23,8 +23,5 @@ namespace SuperPhotoShop.Models
                 Parametrs.Add(field, null);
             }
         }
-
-
-        
     }
 }

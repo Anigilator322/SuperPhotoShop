@@ -1,11 +1,11 @@
-﻿
-using SuperPhotoShop.Models;
+﻿using SuperPhotoShop.Models;
 
 namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public abstract class Tool
     {
-        protected string _name;
+        public string Name { get; set; }
+
         public ParametrsRequirments ParametrRequirmetns { get; protected set; }
 
         public abstract void Handle();

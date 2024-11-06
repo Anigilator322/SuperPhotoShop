@@ -29,7 +29,6 @@ namespace SuperPhotoShop.ViewModels
         #region CloseApplicationViewCommand
         public void OnCloseApplicationViewCommandExecuted(object param)
         {
-            Debug.WriteLine("CloseApp");
             Application.Current.Shutdown();
         }
 

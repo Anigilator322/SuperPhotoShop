@@ -108,7 +108,7 @@ namespace SuperPhotoShop.ViewModels
             MainViewModel = mainViewModel;
 
             Tools.Add(new ColorCorrectionTool());
-            Tools.Add(new FilterTool());
+            Tools.Add(new BlurTool());
 
             #region ViewCommands
             ApplyToolViewCommand = new RelayCommand(OnApplyToolViewCommandExecuted, CanApplyToolViewCommandExecute);

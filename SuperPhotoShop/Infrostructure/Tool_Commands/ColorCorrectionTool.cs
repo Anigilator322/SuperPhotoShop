@@ -10,13 +10,11 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public class ColorCorrectionTool:Tool
     {
-        public string Name
-        {
-            get { return "Цветокор"; }
-        }
         private List<string> _labels = new List<string>();
         public ColorCorrectionTool()
         {
+            Name = "Цветокор";
+
             _labels.Add("Яркость");
             _labels.Add("Насыщенность");
             _labels.Add("Тон");

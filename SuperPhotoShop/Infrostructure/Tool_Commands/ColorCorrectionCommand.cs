@@ -6,9 +6,6 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public class ColorCorrectionCommand: Command
     {
-        private double _oldBrightness;
-        private double _oldSaturation;
-        private double _oldHue;
 
         private double _newBrightness;
         private double _newSaturation;

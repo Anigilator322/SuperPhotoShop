@@ -74,10 +74,9 @@
     <Compile Include="Infrostructure\Tool_Commands\ColorCorrectionCommand.cs" />
     <Compile Include="Infrostructure\Tool_Commands\Command.cs" />
     <Compile Include="Infrostructure\Tool_Commands\CommandHistory.cs" />
-    <Compile Include="Infrostructure\Editor.cs" />
     <Compile Include="Infrostructure\FileManager.cs" />
     <Compile Include="Infrostructure\Tool_Commands\CommandSave\CommandConverter.cs" />
-    <Compile Include="Infrostructure\Tool_Commands\FilterTool.cs" />
+    <Compile Include="Infrostructure\Tool_Commands\BlurTool.cs" />
     <Compile Include="Infrostructure\ViewCommands\Base\ViewCommand.cs" />
     <Compile Include="Infrostructure\ViewCommands\RelayCommand.cs" />
     <Compile Include="Models\ImageModel.cs" />

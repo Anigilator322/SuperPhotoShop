@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
-    public class FilterTool : Tool
+    public class BlurTool : Tool
     {
-        public string Name
-        {
-            get { return "Блюр"; }
-        }
+        
 
         private List<string> _labels = new List<string>();
 
-        public FilterTool()
+        public BlurTool()
         {
+            Name = "Блюр";
             _labels.Add("Радиус");
             _labels.Add("Сигма");
             ParametrRequirmetns = new ParametrsRequirments(_labels);
