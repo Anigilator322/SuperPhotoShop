@@ -7,6 +7,7 @@ using SuperPhotoShop.View.Windows;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -51,23 +52,6 @@ namespace SuperPhotoShop.ViewModels
         }
         #endregion
 
-        #region OpenImageViewComand
-        public ICommand OpenImageViewCommand { get; }
-
-        private bool CanOpenImageViewCommandExecute(object param) => true;
-        private void OnOpenImageViewCommandExecuted(object param)
-        {
-            FileManager _fileManager = new FileManager();
-            ImageModel model = _fileManager.LoadImage();
-            if (model == null)
-                return;
-            _imageModel = model;
-            _imageModel.ImageChanged += OnImageChanged;
-            CurrentImage = ConvertToBitmapImage(model);
-            _session = new Session(_imageModel);
-        }
-        #endregion
-
         #region Tools
         public ObservableCollection<Tool> Tools { get; } = new ObservableCollection<Tool>();
         private Tool _selectedTool;
@@ -87,15 +71,15 @@ namespace SuperPhotoShop.ViewModels
         private bool CanApplyToolViewCommandExecute(object param) => SelectedTool != null && _imageModel != null;
         private void OnApplyToolViewCommandExecuted(object param)
         {
-            if(SelectedTool == null)
+            if (SelectedTool == null)
                 return;
 
-            if(SelectedTool.ParametrRequirmetns != null)
+            if (SelectedTool.ParametrRequirmetns != null)
             {
                 ParametrsRequirments requirments = SelectedTool.ParametrRequirmetns;
                 InputDialog dialog = new InputDialog(requirments.FieldsLabels);
 
-                if(dialog.ShowDialog() == true)
+                if (dialog.ShowDialog() == true)
                 {
                     for (int i = 0; i < requirments.FieldsLabels.Count; i++)
                     {
@@ -111,14 +95,22 @@ namespace SuperPhotoShop.ViewModels
         }
         #endregion
 
+        public void InitializeSession(Session session)
+        {
+            _session = session;
+            _imageModel = session.GetImage();
+            _imageModel.ImageChanged += OnImageChanged;
+            CurrentImage = ConvertToBitmapImage(_imageModel);
+        }
+
         public ImageViewModel(ViewModel mainViewModel)
         {
             MainViewModel = mainViewModel;
 
             Tools.Add(new ColorCorrectionTool());
             Tools.Add(new FilterTool());
+
             #region ViewCommands
-            OpenImageViewCommand = new RelayCommand(OnOpenImageViewCommandExecuted, CanOpenImageViewCommandExecute);
             ApplyToolViewCommand = new RelayCommand(OnApplyToolViewCommandExecuted, CanApplyToolViewCommandExecute);
             #endregion
         }

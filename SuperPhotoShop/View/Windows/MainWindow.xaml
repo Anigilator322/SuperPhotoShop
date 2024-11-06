@@ -28,11 +28,11 @@
         <!-- Верхняя панель с меню -->
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Открыть изображение" Command="{Binding ImageViewModel.OpenImageViewCommand}"/>
-                <MenuItem Header="Сохранить изображение" Command="{Binding SaveImageCommand}"/>
+                <MenuItem Header="Открыть изображение" Command="{Binding OpenImageViewCommand}"/>
+                <MenuItem Header="Сохранить изображение" Command="{Binding SaveAsImageViewCommand}"/>
                 <Separator/>
-                <MenuItem Header="Открыть проект" Command="{Binding OpenProjectCommand}"/>
-                <MenuItem Header="Сохранить проект" Command="{Binding SaveProjectCommand}"/>
+                <MenuItem Header="Открыть проект" Command="{Binding LoadSessionViewCommand}"/>
+                <MenuItem Header="Сохранить проект" Command="{Binding SaveAsSessionViewCommand}"/>
                 <Separator/>
                 <MenuItem Header="Выход" Command="{Binding CloseApplicationViewCommand}"/>
             </MenuItem>
@@ -43,10 +43,6 @@
             <ListBox ItemsSource="{Binding ImageViewModel.Tools}"
                      SelectedItem="{Binding ImageViewModel.SelectedTool}"
                      DisplayMemberPath="Name"/>
-            <!--<Button Content="Яркость" Command="{Binding Tool1Command}" Margin="5"/>
-            <Button Content="Инструмент 2" Command="{Binding Tool2Command}" Margin="5"/>
-            <Button Content="Инструмент 3" Command="{Binding Tool3Command}" Margin="5"/>
-             Добавьте другие кнопки инструментов при необходимости -->
         </StackPanel>
 
         <!-- Поле для изображения -->

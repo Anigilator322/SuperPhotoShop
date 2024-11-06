@@ -6,6 +6,22 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public class CommandHistory
     {
         private Stack<Command> commandsStack = new Stack<Command>();
+        public Stack<Command> Commands
+        {
+            get
+            {
+                return commandsStack;
+            }
+        }
+
+        public CommandHistory()
+        {
+        }
+
+        public CommandHistory(Stack<Command> commandsStack)
+        {
+            this.commandsStack = commandsStack;
+        }
 
         public void ExecuteCommand(Command command)
         {
