@@ -10,20 +10,19 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public class BlurCommand : Command
     {
-        private double _newRadius;
-        private double _newSigma;
+        private double _radius;
+        private double _sigma;
 
         public BlurCommand(double newRadius, double newSigma)
         {
-            _newRadius = newRadius;
-            _newSigma = newSigma;
+            _radius = newRadius;
+            _sigma = newSigma;
         }
 
         public override void Execute(ImageModel imageModel)
         {
             _imageOld = (MagickImage)imageModel.GetImage().Clone();
-            imageModel.GetImage().Blur(_newRadius, _newSigma);
-            imageModel.OnImageChanged();
+            imageModel.SetBlur(_radius, _sigma);
         }
 
         public override MagickImage Undo()

@@ -18,7 +18,16 @@ namespace SuperPhotoShop.Models
         {
             return _image;
         }
-
+        public void SetColorCorrection(double brightness, double saturation, double hue)
+        {
+            _image.Modulate((Percentage)brightness, (Percentage)saturation, (Percentage)hue);
+            OnImageChanged();
+        }
+        public void SetBlur(double radius, double sigma)
+        {
+            _image.Blur(radius, sigma);
+            OnImageChanged();
+        }
         public void OnImageChanged()
         {
             ImageChanged?.Invoke(this, EventArgs.Empty);

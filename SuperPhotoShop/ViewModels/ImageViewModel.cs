@@ -20,7 +20,6 @@ namespace SuperPhotoShop.ViewModels
         private Session _session;
         
         #region Image
-        private ImageModel _imageModel;
         private BitmapImage _currentImage;
         public BitmapImage CurrentImage
         {
@@ -30,7 +29,7 @@ namespace SuperPhotoShop.ViewModels
 
         public void OnImageChanged(object sender, EventArgs e)
         {
-            CurrentImage = ConvertToBitmapImage(_imageModel);
+            CurrentImage = ConvertToBitmapImage(_session.GetImage());
         }
 
         private BitmapImage ConvertToBitmapImage(ImageModel imageModel)
@@ -68,7 +67,7 @@ namespace SuperPhotoShop.ViewModels
 
         #region ApplyToolViewCommand
         public ICommand ApplyToolViewCommand { get; }
-        private bool CanApplyToolViewCommandExecute(object param) => SelectedTool != null && _imageModel != null;
+        private bool CanApplyToolViewCommandExecute(object param) => SelectedTool != null && _session.GetImage() != null;
         private void OnApplyToolViewCommandExecuted(object param)
         {
             if (SelectedTool == null)
@@ -85,7 +84,7 @@ namespace SuperPhotoShop.ViewModels
                     {
                         requirments.Parametrs[requirments.FieldsLabels[i]] = double.Parse(dialog.InputValues[i]);
                     }
-                    SelectedTool.ApplyTool(_imageModel, _session.GetCommandHistory());
+                    SelectedTool.ApplyTool(_session.GetImage(), _session.GetCommandHistory());
                 }
                 else
                 {
@@ -106,19 +105,17 @@ namespace SuperPhotoShop.ViewModels
         private void OnRevertLastCommandViewCommandExecuted(object param)
         {
             ImageModel newImageModel = _session.GetCommandHistory().UndoCommand();
-            _session.SetImage(newImageModel);
-            _imageModel = newImageModel;
             newImageModel.ImageChanged += OnImageChanged;
-            CurrentImage = ConvertToBitmapImage(_imageModel);
+            _session.SetImage(newImageModel);
+            CurrentImage = ConvertToBitmapImage(_session.GetImage());
         }
         #endregion
 
         public void InitializeSession(Session session)
         {
             _session = session;
-            _imageModel = session.GetImage();
-            _imageModel.ImageChanged += OnImageChanged;
-            CurrentImage = ConvertToBitmapImage(_imageModel);
+            _session.GetImage().ImageChanged += OnImageChanged;
+            CurrentImage = ConvertToBitmapImage(_session.GetImage());
         }
 
         public ImageViewModel(ViewModel mainViewModel)

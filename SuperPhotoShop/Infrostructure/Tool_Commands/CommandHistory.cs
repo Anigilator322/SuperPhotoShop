@@ -7,6 +7,12 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public class CommandHistory
     {
         private Stack<Command> commandsStack = new Stack<Command>();
+
+        private void CommandAdd(Command command)
+        {
+            commandsStack.Push(command);
+        }
+
         public bool CanUndoCommand
         {
             get
@@ -36,7 +42,7 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
         public void ExecuteCommand(Command command, ImageModel imageModel)
         {
             command.Execute(imageModel);
-            commandsStack.Push(command);
+            CommandAdd(command);
         }
         public ImageModel UndoCommand()
         {
@@ -44,5 +50,6 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
             return new ImageModel(command.Undo());
             
         }
+
     }
 }
