@@ -71,11 +71,12 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
         public ImageModel UndoAllCommands()
         {
             int size = commandsStack.Count;
-            for (int i = 0; i < size - 1; i++) 
+            ImageModel result = null;
+            for(int i = 0;i<size;i++)
             {
-                UndoCommand();
+                result = UndoCommand();
             }
-            return UndoCommand();
+            return result;
         }
     }
 }
