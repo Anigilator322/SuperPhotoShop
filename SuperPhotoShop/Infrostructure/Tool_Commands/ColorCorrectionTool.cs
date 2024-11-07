@@ -36,9 +36,8 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
             ColorCorrectionCommand command = new ColorCorrectionCommand(
                 (double)ParametrRequirmetns.Parametrs[_labels[0]],
                 (double)ParametrRequirmetns.Parametrs[_labels[1]],
-                (double)ParametrRequirmetns.Parametrs[_labels[2]],
-                imageModel);
-            commandHistory.ExecuteCommand(command);
+                (double)ParametrRequirmetns.Parametrs[_labels[2]]);
+            commandHistory.ExecuteCommand(command,imageModel);
         }
     }
 }

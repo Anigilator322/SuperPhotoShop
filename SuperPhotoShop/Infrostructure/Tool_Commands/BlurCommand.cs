@@ -1,4 +1,5 @@
-﻿using SuperPhotoShop.Models;
+﻿using ImageMagick;
+using SuperPhotoShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +13,22 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
         private double _newRadius;
         private double _newSigma;
 
-        public BlurCommand(double newRadius, double newSigma, ImageModel imageModel)
+        public BlurCommand(double newRadius, double newSigma)
         {
             _newRadius = newRadius;
             _newSigma = newSigma;
-            _imageModel = imageModel;
         }
 
-        public override void Execute()
+        public override void Execute(ImageModel imageModel)
         {
-            _imageModel.GetImage().Blur(_newRadius, _newSigma);
-            _imageModel.OnImageChanged();
+            _imageOld = (MagickImage)imageModel.GetImage().Clone();
+            imageModel.GetImage().Blur(_newRadius, _newSigma);
+            imageModel.OnImageChanged();
         }
 
-        public override void Redo()
+        public override MagickImage Undo()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void Undo()
-        {
-            throw new NotImplementedException();
+            return _imageOld;
         }
     }
 }

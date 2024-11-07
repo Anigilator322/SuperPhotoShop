@@ -14,11 +14,8 @@ namespace SuperPhotoShop
     /// </summary>
     public partial class App : Application
     {
-        private Editor _Editor;
         protected override void OnStartup(StartupEventArgs e)
         {
-            Editor editor = new Editor();
-            editor.Initialize();
         }
     }
 }

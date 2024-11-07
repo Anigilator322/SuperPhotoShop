@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SuperPhotoShop.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SuperPhotoShop.Infrostructure.Tool_Commands
@@ -6,6 +7,15 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public class CommandHistory
     {
         private Stack<Command> commandsStack = new Stack<Command>();
+        public bool CanUndoCommand
+        {
+            get
+            {
+                if(commandsStack.Count!=0)return true;
+                else return false;
+            }
+        }
+
         public Stack<Command> Commands
         {
             get
@@ -23,21 +33,16 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
             this.commandsStack = commandsStack;
         }
 
-        public void ExecuteCommand(Command command)
+        public void ExecuteCommand(Command command, ImageModel imageModel)
         {
-            command.Execute();
+            command.Execute(imageModel);
             commandsStack.Push(command);
         }
-        public void UndoCommand()
+        public ImageModel UndoCommand()
         {
             Command command = commandsStack.Pop();
-            command.Undo();
+            return new ImageModel(command.Undo());
             
-        }
-        public void RedoCommand()
-        {
-            Command command = commandsStack.Last();
-            command.Redo();
         }
     }
 }

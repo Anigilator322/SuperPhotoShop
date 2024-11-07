@@ -33,8 +33,8 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
 
         protected override void CreateCommand(CommandHistory commandHistory, ImageModel imageModel)
         {
-            BlurCommand command = new BlurCommand((double)ParametrRequirmetns.Parametrs[_labels[0]], (double)ParametrRequirmetns.Parametrs[_labels[1]], imageModel);
-            commandHistory.ExecuteCommand(command);
+            BlurCommand command = new BlurCommand((double)ParametrRequirmetns.Parametrs[_labels[0]], (double)ParametrRequirmetns.Parametrs[_labels[1]]);
+            commandHistory.ExecuteCommand(command,imageModel);
         }
     }
 }

@@ -36,6 +36,10 @@
                 <Separator/>
                 <MenuItem Header="Выход" Command="{Binding CloseApplicationViewCommand}"/>
             </MenuItem>
+            <MenuItem Header="Проект">
+                <MenuItem Header="Отменить последнее действие" Command="{Binding ImageViewModel.RevertLastCommandViewCommand}"/>
+            </MenuItem>
+                      
         </Menu>
 
         <!-- Панель инструментов слева -->

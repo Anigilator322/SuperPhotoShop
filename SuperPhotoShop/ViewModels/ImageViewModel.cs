@@ -95,6 +95,24 @@ namespace SuperPhotoShop.ViewModels
         }
         #endregion
 
+        #region RevertLastCommandViewCommand
+        public ICommand RevertLastCommandViewCommand { get; }
+        private bool CanRevertLastCommandViewCommandExecute(object param)
+        {
+            if(_session!=null)
+                return _session.GetCommandHistory().CanUndoCommand;
+            else return false;
+        }
+        private void OnRevertLastCommandViewCommandExecuted(object param)
+        {
+            ImageModel newImageModel = _session.GetCommandHistory().UndoCommand();
+            _session.SetImage(newImageModel);
+            _imageModel = newImageModel;
+            newImageModel.ImageChanged += OnImageChanged;
+            CurrentImage = ConvertToBitmapImage(_imageModel);
+        }
+        #endregion
+
         public void InitializeSession(Session session)
         {
             _session = session;
@@ -112,6 +130,7 @@ namespace SuperPhotoShop.ViewModels
 
             #region ViewCommands
             ApplyToolViewCommand = new RelayCommand(OnApplyToolViewCommandExecuted, CanApplyToolViewCommandExecute);
+            RevertLastCommandViewCommand = new RelayCommand(OnRevertLastCommandViewCommandExecuted, CanRevertLastCommandViewCommandExecute);
             #endregion
         }
     }
