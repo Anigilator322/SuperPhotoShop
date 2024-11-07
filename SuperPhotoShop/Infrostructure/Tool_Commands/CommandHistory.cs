@@ -7,6 +7,7 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public class CommandHistory
     {
         private Stack<Command> commandsStack = new Stack<Command>();
+        private Stack<Command> revertedCommands = new Stack<Command>();
 
         private void CommandAdd(Command command)
         {
@@ -18,6 +19,14 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
             get
             {
                 if(commandsStack.Count!=0)return true;
+                else return false;
+            }
+        }
+        public bool CanRedoCommand
+        {
+            get
+            {
+                if(revertedCommands.Count!=0) return true;
                 else return false;
             }
         }
@@ -44,12 +53,29 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
             command.Execute(imageModel);
             CommandAdd(command);
         }
+
         public ImageModel UndoCommand()
         {
             Command command = commandsStack.Pop();
+            revertedCommands.Push(command);
             return new ImageModel(command.Undo());
-            
         }
 
+        public void RedoCommand(ImageModel imageModel)
+        {
+            Command command = revertedCommands.Pop();
+            command.Execute(imageModel);
+            CommandAdd(command);
+        }
+
+        public ImageModel UndoAllCommands()
+        {
+            int size = commandsStack.Count;
+            for (int i = 0; i < size - 1; i++) 
+            {
+                UndoCommand();
+            }
+            return UndoCommand();
+        }
     }
 }

@@ -7,6 +7,7 @@ using SuperPhotoShop.View.Windows;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -105,11 +106,45 @@ namespace SuperPhotoShop.ViewModels
         private void OnRevertLastCommandViewCommandExecuted(object param)
         {
             ImageModel newImageModel = _session.GetCommandHistory().UndoCommand();
-            newImageModel.ImageChanged += OnImageChanged;
-            _session.SetImage(newImageModel);
-            CurrentImage = ConvertToBitmapImage(_session.GetImage());
+            InitializeImageModel(newImageModel);
         }
         #endregion
+
+        #region UndoAllCommandsViewCommand
+        public ICommand UndoAllCommandsViewCommand {  get; }
+        private bool CanUndoAllCommandsViewCommandExecute(object param)
+        {
+            if (_session != null)
+                return _session.GetCommandHistory().CanUndoCommand;
+            else return false;
+        }
+        private void OnUndoAllCommandsViewCommandExecuted(object param)
+        {
+            ImageModel newImageModel = _session.GetCommandHistory().UndoAllCommands();
+            InitializeImageModel(newImageModel);
+        }
+        #endregion
+
+        #region RedoLastCommand
+        public ICommand RedoLastCommand {  get; }
+        private bool CanRedoLastCommandExecute(object param)
+        {
+            if (_session != null)
+                return _session.GetCommandHistory().CanRedoCommand;
+            else return false;
+        }
+        private void OnRedoLastCommandExecuted(object param)
+        {
+            _session.GetCommandHistory().RedoCommand(_session.GetImage());
+        }
+        #endregion
+
+        public void InitializeImageModel(ImageModel imageModel)
+        {
+            imageModel.ImageChanged += OnImageChanged;
+            _session.SetImage(imageModel);
+            CurrentImage = ConvertToBitmapImage(_session.GetImage());
+        }
 
         public void InitializeSession(Session session)
         {
@@ -128,6 +163,8 @@ namespace SuperPhotoShop.ViewModels
             #region ViewCommands
             ApplyToolViewCommand = new RelayCommand(OnApplyToolViewCommandExecuted, CanApplyToolViewCommandExecute);
             RevertLastCommandViewCommand = new RelayCommand(OnRevertLastCommandViewCommandExecuted, CanRevertLastCommandViewCommandExecute);
+            UndoAllCommandsViewCommand = new RelayCommand(OnUndoAllCommandsViewCommandExecuted, CanUndoAllCommandsViewCommandExecute);
+            RedoLastCommand = new RelayCommand(OnRedoLastCommandExecuted, CanRedoLastCommandExecute);
             #endregion
         }
     }

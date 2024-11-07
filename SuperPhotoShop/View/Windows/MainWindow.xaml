@@ -38,8 +38,10 @@
             </MenuItem>
             <MenuItem Header="Проект">
                 <MenuItem Header="Отменить последнее действие" Command="{Binding ImageViewModel.RevertLastCommandViewCommand}"/>
+                <MenuItem Header="Вернуть последнее действие" Command="{Binding ImageViewModel.RedoLastCommand}"/>
+                <Separator/>
+                <MenuItem Header="Отменить все действия" Command="{Binding ImageViewModel.UndoAllCommandsViewCommand}"/>
             </MenuItem>
-                      
         </Menu>
 
         <!-- Панель инструментов слева -->
