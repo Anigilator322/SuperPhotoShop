@@ -8,6 +8,7 @@ using System.Text.Json;
 using SuperPhotoShop.Infrostructure.Tool_Commands;
 using System.Collections.Generic;
 using SuperPhotoShop.Infrostructure.Tool_Commands.CommandSave;
+using System.Linq;
 namespace SuperPhotoShop.Infrostructure
 {
     public class FileManager
@@ -96,16 +97,34 @@ namespace SuperPhotoShop.Infrostructure
 
             if (openFileDialog.ShowDialog() == true)
             {
+                // Читаем JSON из файла
                 var json = File.ReadAllText(openFileDialog.FileName);
 
-                var sessionData = JsonSerializer.Deserialize<dynamic>(json,jsonOptions);
+                // Десериализуем объект данных из JSON
+                JsonDocument document = JsonDocument.Parse(json);
+                JsonElement root = document.RootElement;
 
-                byte[] imageBytes = Convert.FromBase64String((string)sessionData["ImageData"]);
-                MagickImage image = new MagickImage(imageBytes);
-
-                var history = new CommandHistory(JsonSerializer.Deserialize<Stack<Command>>(sessionData["History"].ToString()));
-                
-                return new Session(new ImageModel(image),history);
+                // Извлекаем данные изображения как строку
+                if (root.TryGetProperty("ImageData", out JsonElement imageDataElement) &&
+                    imageDataElement.ValueKind == JsonValueKind.String)
+                {
+                    string imageDataString = imageDataElement.GetString();
+                    byte[] imageBytes = Convert.FromBase64String(imageDataString);
+                    MagickImage image = new MagickImage(imageBytes);
+                    ImageModel model = new ImageModel(image);
+                    // Восстанавливаем историю команд
+                    CommandHistory history;
+                    if (root.TryGetProperty("History", out JsonElement historyElement))
+                    {
+                        history = new CommandHistory(new Stack<Command>(JsonSerializer.Deserialize<Stack<Command>>(historyElement.GetRawText(), jsonOptions)));
+                        return new Session(model, history);
+                    }
+                    
+                }
+                else
+                {
+                    throw new InvalidDataException("Image data is missing or not in the correct format.");
+                }
             }
             return null;
         }

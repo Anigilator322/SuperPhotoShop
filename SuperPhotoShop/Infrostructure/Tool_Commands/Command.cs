@@ -6,7 +6,7 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public abstract class Command
     {
         //protected ImageModel _imageModel;
-        protected MagickImage _imageOld;
+        public MagickImage _imageOld { get; set; }
         public abstract void Execute(ImageModel imageModel);
         public abstract MagickImage Undo();
     }

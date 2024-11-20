@@ -7,9 +7,14 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
     public class ColorCorrectionCommand: Command
     {
 
-        private double _brightness;
-        private double _saturation;
-        private double _hue;
+        public double _brightness { get; set; }
+        public double _saturation { get; set; }
+        public double _hue { get; set; }
+
+        public ColorCorrectionCommand()
+        {
+
+        }
 
         public ColorCorrectionCommand(double newBrightness,double newSaturation,double newHue) 
         {

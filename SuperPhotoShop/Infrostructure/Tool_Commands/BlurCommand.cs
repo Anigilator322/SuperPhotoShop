@@ -10,9 +10,15 @@ namespace SuperPhotoShop.Infrostructure.Tool_Commands
 {
     public class BlurCommand : Command
     {
-        private double _radius;
-        private double _sigma;
+        public double _radius { get; set; }
+        public double _sigma { get; set; }
+        
+        
 
+        public BlurCommand()
+        {
+
+        }
         public BlurCommand(double newRadius, double newSigma)
         {
             _radius = newRadius;

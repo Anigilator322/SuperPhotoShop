@@ -1,4 +1,5 @@
-﻿using SuperPhotoShop.Infrostructure;
+﻿using ImageMagick;
+using SuperPhotoShop.Infrostructure;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,7 @@ namespace SuperPhotoShop
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            MagickNET.Initialize();
         }
     }
 }
