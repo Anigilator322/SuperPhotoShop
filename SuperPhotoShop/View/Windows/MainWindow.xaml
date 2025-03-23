@@ -34,6 +34,8 @@
                 <MenuItem Header="Открыть проект" Command="{Binding LoadSessionViewCommand}"/>
                 <MenuItem Header="Сохранить проект" Command="{Binding SaveAsSessionViewCommand}"/>
                 <Separator/>
+                <MenuItem Header="Загрузить из интеренета" Command="{Binding DownloadImageFromWebCommand}"/>
+                <Separator/>
                 <MenuItem Header="Выход" Command="{Binding CloseApplicationViewCommand}"/>
             </MenuItem>
             <MenuItem Header="Проект">

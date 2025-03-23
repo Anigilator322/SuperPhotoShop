@@ -3,6 +3,7 @@ using SuperPhotoShop.Infrostructure;
 using SuperPhotoShop.Infrostructure.ViewCommands;
 using SuperPhotoShop.Models;
 using SuperPhotoShop.View.Windows;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -87,6 +88,27 @@ namespace SuperPhotoShop.ViewModels
         }
         #endregion
 
+        #region DownloadImageFromWeb
+        public ICommand DownloadImageFromWebCommand { get; }
+
+        private bool CanDownloadImageFromWebCommandExecute(object param) => true;
+        private void OnDownloadImageFromWebCommandExecuted(object param)
+        {
+            var labels = new List<string> { "URL" };
+            var downloadWindow = new InputDialog(labels);
+            if (downloadWindow.ShowDialog() == true)
+            {
+                var url = downloadWindow.InputValues[0];
+                FileManager fileManager = new FileManager();
+                var model = fileManager.GetImageFromWeb(url);
+                if (model == null)
+                    return;
+                _session = new Session(model);
+                InitImageView();
+            }
+        }
+        #endregion
+
         private void InitImageView()
         {
             ImageViewModel.InitializeSession(_session);
@@ -101,6 +123,7 @@ namespace SuperPhotoShop.ViewModels
             SaveAsImageViewCommand = new RelayCommand(OnSaveAsImageViewCommandExecuted, CanSaveAsImageViewCommandExecute);
             SaveAsSessionViewCommand = new RelayCommand(OnSaveAsSessionViewCommandExecuted, CanSaveAsSessionViewCommandExecute);
             LoadSessionViewCommand = new RelayCommand(OnLoadSessionViewCommandExecuted, CanLoadSessionViewCommandExecute);
+            DownloadImageFromWebCommand = new RelayCommand(OnDownloadImageFromWebCommandExecuted, CanDownloadImageFromWebCommandExecute);
             #endregion
         }
     }

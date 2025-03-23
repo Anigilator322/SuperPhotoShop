@@ -1,18 +1,19 @@
 ﻿using Microsoft.Win32;
 using SuperPhotoShop.Models;
 using ImageMagick;
-using System.Windows.Media.Imaging;
 using System.IO;
 using System;
 using System.Text.Json;
 using SuperPhotoShop.Infrostructure.Tool_Commands;
 using System.Collections.Generic;
 using SuperPhotoShop.Infrostructure.Tool_Commands.CommandSave;
-using System.Linq;
+using SuperPhotoShop.Infrostructure.ImageLoader;
+using System.Drawing;
 namespace SuperPhotoShop.Infrostructure
 {
     public class FileManager
     {
+        IImageLoader imageLoader;
 
         private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions
         {
@@ -20,6 +21,12 @@ namespace SuperPhotoShop.Infrostructure
             WriteIndented = true
         };
 
+
+        public ImageModel GetImageFromWeb(string url)
+        {
+            imageLoader = new ImageLoader.ImageLoaderProxy();
+            return imageLoader.LoadImage(url);
+        }
 
         public void SaveImage(ImageModel imageModel)
         {
