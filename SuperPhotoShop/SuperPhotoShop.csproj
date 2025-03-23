@@ -70,9 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Infrostructure\ImageLoader\IImageLoader.cs" />
     <Compile Include="Infrostructure\ImageLoader\ImageLoader.cs" />
-    <Compile Include="Infrostructure\ImageLoader\ImageLoaderProxy.cs" />
     <Compile Include="Infrostructure\Storage\CacheEntry.cs" />
     <Compile Include="Infrostructure\Storage\LocalCacheStorage.cs" />
     <Compile Include="Infrostructure\Tool_Commands\BlurCommand.cs" />
