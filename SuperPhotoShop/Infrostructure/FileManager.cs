@@ -13,7 +13,7 @@ namespace SuperPhotoShop.Infrostructure
 {
     public class FileManager
     {
-        IImageLoader imageLoader;
+        ImageLoader.ImageLoader imageLoader;
 
         private static JsonSerializerOptions jsonOptions = new JsonSerializerOptions
         {
@@ -24,7 +24,7 @@ namespace SuperPhotoShop.Infrostructure
 
         public ImageModel GetImageFromWeb(string url)
         {
-            imageLoader = new ImageLoader.ImageLoaderProxy();
+            imageLoader = new ImageLoader.ImageLoader();
             return imageLoader.LoadImage(url);
         }
 
